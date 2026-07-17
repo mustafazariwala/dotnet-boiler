@@ -1,0 +1,14 @@
+# Build outputs
+bin/
+obj/
+
+# Local .NET CLI metadata redirected here for sandbox-friendly commands
+.dotnet-home/
+
+# IDE/editor files
+.vs/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- net8.0 is a long-term support .NET version, which makes it a good default for learning and production. -->
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- Nullable reference types help C# catch "this could be null" bugs at compile time.
+         TypeScript comparison: similar in spirit to strictNullChecks. -->
+    <Nullable>enable</Nullable>
+
+    <!-- Implicit usings add common using statements automatically so beginner projects stay less noisy. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

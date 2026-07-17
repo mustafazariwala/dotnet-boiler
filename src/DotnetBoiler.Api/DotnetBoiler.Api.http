@@ -1,0 +1,34 @@
+@DotnetBoiler.Api_HostAddress = http://localhost:5189
+
+# This file can be used by REST Client extensions in VS Code, Rider, or Visual Studio.
+# Start the API with: dotnet run --project src/DotnetBoiler.Api
+
+### Get every todo
+GET {{DotnetBoiler.Api_HostAddress}}/api/todos
+Accept: application/json
+
+### Create a todo
+POST {{DotnetBoiler.Api_HostAddress}}/api/todos
+Content-Type: application/json
+
+{
+  "title": "Build my first .NET endpoint",
+  "description": "Use the controller, DTO, model, and service files to follow the request flow."
+}
+
+### Replace TODO_ID with an id returned from GET /api/todos
+GET {{DotnetBoiler.Api_HostAddress}}/api/todos/TODO_ID
+Accept: application/json
+
+### Update a todo
+PUT {{DotnetBoiler.Api_HostAddress}}/api/todos/TODO_ID
+Content-Type: application/json
+
+{
+  "title": "Build my first .NET endpoint",
+  "description": "Mark it complete after testing with curl or the .http file.",
+  "isCompleted": true
+}
+
+### Delete a todo
+DELETE {{DotnetBoiler.Api_HostAddress}}/api/todos/TODO_ID
