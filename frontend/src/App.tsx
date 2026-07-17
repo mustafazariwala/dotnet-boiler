@@ -88,15 +88,18 @@ export function App() {
 
       <section className="workspace" aria-label="Todo workspace">
         <header className="topbar">
-          <div>
-            <p className="eyebrow">
-              <Sparkles size={15} aria-hidden="true" />
-              ASP.NET Core + React
-            </p>
-            <h1>Todo API Client</h1>
-            <p className="intro">
-              A polished React surface backed by your .NET boilerplate API.
-            </p>
+          <div className="brandBlock">
+            <img className="appLogo" src="/assets/logo.svg" alt="DotnetBoiler logo" />
+            <div>
+              <p className="eyebrow">
+                <Sparkles size={15} aria-hidden="true" />
+                ASP.NET Core + React
+              </p>
+              <h1>Todo API Client</h1>
+              <p className="intro">
+                A polished React surface backed by your .NET boilerplate API.
+              </p>
+            </div>
           </div>
           <button className="iconButton" type="button" onClick={loadTodos} title="Refresh todos">
             {isLoading ? <Loader2 className="spin" size={18} /> : <RefreshCcw size={18} />}

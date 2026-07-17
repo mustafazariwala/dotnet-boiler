@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="315" viewBox="0 0 600 315" role="img" aria-labelledby="title desc">
+  <title id="title">DotnetBoiler tag image</title>
+  <desc id="desc">A compact social tag image for DotnetBoiler.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="600" y2="315" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#26735B"/>
+      <stop offset="1" stop-color="#C9613E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="315" rx="30" fill="#F8FBF9"/>
+  <rect x="24" y="24" width="552" height="267" rx="28" fill="url(#bg)"/>
+  <rect x="56" y="62" width="86" height="86" rx="22" fill="#FFFFFF" opacity=".22"/>
+  <text x="64" y="181" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="800">DotnetBoiler</text>
+  <text x="66" y="226" fill="#F8FBF9" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">ASP.NET Core + React TypeScript</text>
+  <text x="66" y="258" fill="#F8FBF9" font-family="Inter, Arial, sans-serif" font-size="18">mustafazariwala/dotnet-boiler</text>
+</svg>
