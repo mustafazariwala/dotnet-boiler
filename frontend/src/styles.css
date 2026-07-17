@@ -1,6 +1,6 @@
 :root {
   color: #18201c;
-  background: #eef1ed;
+  background: #eaf0ed;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -22,17 +22,80 @@ input {
 }
 
 .shell {
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
   padding: 32px;
   background:
-    linear-gradient(135deg, rgba(38, 115, 91, 0.14), transparent 42%),
-    linear-gradient(315deg, rgba(201, 97, 62, 0.13), transparent 38%),
-    #eef1ed;
+    linear-gradient(135deg, rgba(38, 115, 91, 0.18), transparent 44%),
+    linear-gradient(315deg, rgba(201, 97, 62, 0.16), transparent 40%),
+    linear-gradient(180deg, #f8fbf9, #e4ece8);
+}
+
+.floatLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floatBox {
+  position: absolute;
+  display: block;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.3)),
+    linear-gradient(135deg, rgba(38, 115, 91, 0.22), rgba(201, 97, 62, 0.16));
+  box-shadow: 0 24px 80px rgba(28, 54, 43, 0.14);
+  transform: rotate(10deg);
+  animation: floatBox 9s ease-in-out infinite;
+}
+
+.boxOne {
+  width: 132px;
+  height: 132px;
+  top: 9%;
+  left: 5%;
+}
+
+.boxTwo {
+  width: 86px;
+  height: 86px;
+  top: 18%;
+  right: 9%;
+  animation-delay: -2s;
+}
+
+.boxThree {
+  width: 110px;
+  height: 110px;
+  right: 16%;
+  bottom: 12%;
+  animation-delay: -4s;
+}
+
+.boxFour {
+  width: 76px;
+  height: 76px;
+  left: 12%;
+  bottom: 18%;
+  animation-delay: -6s;
 }
 
 .workspace {
+  position: relative;
+  z-index: 1;
   width: min(960px, 100%);
   margin: 0 auto;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow:
+    0 28px 90px rgba(27, 48, 39, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+  animation: riseIn 0.55s ease-out both;
 }
 
 .topbar {
@@ -44,8 +107,11 @@ input {
 }
 
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   margin: 0 0 4px;
-  color: #52645a;
+  color: #1f5f4c;
   font-size: 0.86rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -55,6 +121,14 @@ h1 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1;
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: 520px;
+  margin: 12px 0 0;
+  color: #52645a;
+  font-size: 1.03rem;
 }
 
 .summary {
@@ -65,10 +139,35 @@ h1 {
 }
 
 .summary > div {
+  position: relative;
+  overflow: hidden;
   padding: 18px;
   border: 1px solid #d5ddd7;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.78);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.62)),
+    linear-gradient(135deg, rgba(38, 115, 91, 0.12), transparent);
+  box-shadow: 0 14px 34px rgba(38, 67, 55, 0.1);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.summary > div::after {
+  content: "";
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  right: -16px;
+  top: -18px;
+  border-radius: 14px;
+  background: rgba(38, 115, 91, 0.12);
+  transform: rotate(18deg);
+}
+
+.summary > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(38, 67, 55, 0.16);
 }
 
 .summary span {
@@ -86,7 +185,12 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1.4fr auto;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid rgba(213, 221, 215, 0.88);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 16px 42px rgba(38, 67, 55, 0.09);
 }
 
 .composer input {
@@ -95,8 +199,19 @@ h1 {
   padding: 0 14px;
   border: 1px solid #cbd5cf;
   border-radius: 8px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
   color: #18201c;
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.composer input:focus {
+  border-color: #26735b;
+  box-shadow: 0 0 0 4px rgba(38, 115, 91, 0.14);
+  transform: translateY(-1px);
 }
 
 .composer button,
@@ -114,9 +229,23 @@ h1 {
   gap: 8px;
   height: 44px;
   padding: 0 18px;
-  background: #26735b;
+  background: linear-gradient(135deg, #26735b, #1f5f4c);
   color: #fff;
   font-weight: 800;
+  box-shadow: 0 12px 26px rgba(38, 115, 91, 0.24);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.composer button:hover,
+.iconButton:hover,
+.repoLink:hover {
+  transform: translateY(-2px);
+}
+
+.composer button:hover {
+  box-shadow: 0 16px 34px rgba(38, 115, 91, 0.3);
 }
 
 .iconButton {
@@ -125,6 +254,16 @@ h1 {
   background: #fff;
   color: #24362e;
   border: 1px solid #d5ddd7;
+  box-shadow: 0 12px 30px rgba(38, 67, 55, 0.08);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease;
+}
+
+.iconButton:hover {
+  color: #26735b;
+  box-shadow: 0 16px 36px rgba(38, 67, 55, 0.14);
 }
 
 .iconButton.danger {
@@ -137,6 +276,8 @@ h1 {
 }
 
 .footer {
+  position: relative;
+  z-index: 1;
   width: min(960px, 100%);
   margin: 24px auto 0;
   display: flex;
@@ -170,6 +311,10 @@ h1 {
   border: 1px solid #d5ddd7;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 12px 30px rgba(38, 67, 55, 0.08);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .todo,
@@ -186,6 +331,18 @@ h1 {
   align-items: center;
   gap: 12px;
   padding: 14px;
+  box-shadow: 0 10px 28px rgba(38, 67, 55, 0.08);
+  animation: todoIn 420ms ease-out both;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.todo:hover {
+  transform: translateY(-3px) scale(1.005);
+  border-color: rgba(38, 115, 91, 0.28);
+  box-shadow: 0 18px 44px rgba(38, 67, 55, 0.14);
 }
 
 .status {
@@ -194,12 +351,20 @@ h1 {
   border: 1px solid #cbd5cf;
   background: #fff;
   color: transparent;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
 }
 
 .status.done {
   background: #26735b;
   color: #fff;
   border-color: #26735b;
+}
+
+.status:hover {
+  transform: rotate(-6deg) scale(1.06);
 }
 
 .todoBody {
@@ -227,6 +392,7 @@ h1 {
   color: #9b3028;
   background: #fff7f5;
   border-color: #efc7bf;
+  animation: shakeIn 260ms ease-out both;
 }
 
 .spin {
@@ -239,9 +405,73 @@ h1 {
   }
 }
 
+@keyframes floatBox {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(10deg);
+  }
+
+  50% {
+    transform: translate3d(18px, -22px, 0) rotate(-5deg);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes todoIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shakeIn {
+  0% {
+    transform: translateX(-6px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @media (max-width: 720px) {
   .shell {
     padding: 20px;
+  }
+
+  .workspace {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .boxOne,
+  .boxThree {
+    opacity: 0.45;
+  }
+
+  .boxTwo,
+  .boxFour {
+    display: none;
   }
 
   .summary,

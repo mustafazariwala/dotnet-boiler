@@ -1,4 +1,14 @@
-import { Check, ExternalLink, Github, Heart, Loader2, Plus, RefreshCcw, Trash2 } from "lucide-react";
+import {
+  Check,
+  ExternalLink,
+  Github,
+  Heart,
+  Loader2,
+  Plus,
+  RefreshCcw,
+  Sparkles,
+  Trash2
+} from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { createTodo, deleteTodo, getTodos, TodoItem, updateTodo } from "./api";
 
@@ -69,11 +79,24 @@ export function App() {
 
   return (
     <main className="shell">
+      <div className="floatLayer" aria-hidden="true">
+        <span className="floatBox boxOne" />
+        <span className="floatBox boxTwo" />
+        <span className="floatBox boxThree" />
+        <span className="floatBox boxFour" />
+      </div>
+
       <section className="workspace" aria-label="Todo workspace">
         <header className="topbar">
           <div>
-            <p className="eyebrow">ASP.NET Core + React</p>
+            <p className="eyebrow">
+              <Sparkles size={15} aria-hidden="true" />
+              ASP.NET Core + React
+            </p>
             <h1>Todo API Client</h1>
+            <p className="intro">
+              A polished React surface backed by your .NET boilerplate API.
+            </p>
           </div>
           <button className="iconButton" type="button" onClick={loadTodos} title="Refresh todos">
             {isLoading ? <Loader2 className="spin" size={18} /> : <RefreshCcw size={18} />}
@@ -122,8 +145,8 @@ export function App() {
           ) : todos.length === 0 ? (
             <div className="empty">No todos yet.</div>
           ) : (
-            todos.map((todo) => (
-              <article className="todo" key={todo.id}>
+            todos.map((todo, index) => (
+              <article className="todo" key={todo.id} style={{ animationDelay: `${index * 70}ms` }}>
                 <button
                   className={todo.isCompleted ? "status done" : "status"}
                   type="button"
