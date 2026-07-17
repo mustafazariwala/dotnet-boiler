@@ -1,4 +1,4 @@
-import { Check, Loader2, Plus, RefreshCcw, Trash2 } from "lucide-react";
+import { Check, ExternalLink, Github, Heart, Loader2, Plus, RefreshCcw, Trash2 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { createTodo, deleteTodo, getTodos, TodoItem, updateTodo } from "./api";
 
@@ -149,6 +149,25 @@ export function App() {
           )}
         </div>
       </section>
+
+      <footer className="footer">
+        <span>
+          Made with <Heart size={15} aria-hidden="true" /> by{" "}
+          <a href="https://thezariwala.com/" target="_blank" rel="noreferrer">
+            Mustafa Zariwala
+            <ExternalLink size={14} aria-hidden="true" />
+          </a>
+        </span>
+        <a
+          className="repoLink"
+          href="https://github.com/mustafazariwala/dotnet-boiler"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Github size={16} aria-hidden="true" />
+          Fork mustafazariwala/dotnet-boiler
+        </a>
+      </footer>
     </main>
   );
 }
