@@ -1,0 +1,13 @@
+{
+  "name": "dotnet-boiler",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,green \"DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false dotnet run --project src/DotnetBoiler.Api --urls http://localhost:5189\" \"npm --prefix frontend run dev -- --host 0.0.0.0\"",
+    "build": "npm --prefix frontend run build && dotnet publish src/DotnetBoiler.Api -c Release -o publish",
+    "start": "DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false dotnet run --project src/DotnetBoiler.Api --urls http://localhost:5189"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

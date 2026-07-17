@@ -1,9 +1,18 @@
 # Build outputs
 bin/
 obj/
+publish/
+src/DotnetBoiler.Api/wwwroot/
 
 # Local .NET CLI metadata redirected here for sandbox-friendly commands
 .dotnet-home/
+
+# Node/Vite
+node_modules/
+frontend/node_modules/
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
 
 # IDE/editor files
 .vs/

@@ -15,12 +15,21 @@ var app = builder.Build();
 // Middleware runs in order for every HTTP request.
 // Add app.UseHttpsRedirection() here later after HTTPS is configured for your environment.
 
+// Serves the React production build from wwwroot after running npm run build.
+// TypeScript comparison: similar to serving a built Vite/React dist folder from Express static middleware.
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 // Authorization middleware is included now so it is clear where auth would plug in later.
 // This boilerplate does not require login yet.
 app.UseAuthorization();
 
 // This discovers all classes decorated with [ApiController] and maps their route attributes.
 app.MapControllers();
+
+// Lets client-side React routes refresh correctly in production.
+// API routes are handled above by MapControllers, so this fallback is only for frontend pages.
+app.MapFallbackToFile("index.html");
 
 // Starts Kestrel, the ASP.NET Core web server.
 app.Run();

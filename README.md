@@ -4,6 +4,8 @@ A small ASP.NET Core Web API boilerplate for learning .NET from a TypeScript/Nod
 
 Important language note: .NET backend APIs are usually written in C#, not TypeScript. This project is intentionally C#, but the comments and explanations compare concepts to TypeScript so you can learn the .NET way quickly.
 
+It also includes a React + TypeScript frontend that talks to the .NET API.
+
 ## What You Will Learn
 
 - How a .NET API starts in `Program.cs`
@@ -11,6 +13,8 @@ Important language note: .NET backend APIs are usually written in C#, not TypeSc
 - How request DTOs validate incoming JSON
 - How models represent application data
 - How dependency injection connects controllers to services
+- How a React frontend calls a .NET API
+- How to serve a built frontend from ASP.NET Core for deployment
 - How to run, test, and extend an ASP.NET Core API
 
 ## Project Structure
@@ -18,7 +22,16 @@ Important language note: .NET backend APIs are usually written in C#, not TypeSc
 ```text
 dotnet-boiler/
 ├── DotnetBoiler.sln
+├── package.json
 ├── README.md
+├── frontend/
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── api.ts
+│   │   ├── main.tsx
+│   │   └── styles.css
+│   ├── index.html
+│   └── vite.config.ts
 └── src/
     └── DotnetBoiler.Api/
         ├── Controllers/
@@ -50,6 +63,8 @@ dotnet-boiler/
 | Service class/module | Service class | `InMemoryTodoService.cs` |
 | Dependency injection container such as NestJS | Built-in DI container | `builder.Services...` |
 | `npm run dev` | `dotnet run` | run the local API |
+| Vite proxy | ASP.NET Core endpoint | React calls `/api/todos` |
+| `dist/` folder | `wwwroot/` folder | production frontend files |
 
 ## Prerequisites
 
@@ -60,6 +75,35 @@ dotnet --version
 ```
 
 This boilerplate targets `.NET 8`.
+
+Install Node.js for the React frontend:
+
+```bash
+node --version
+npm --version
+```
+
+Install dependencies:
+
+```bash
+npm install
+npm --prefix frontend install
+```
+
+## Run API And React Together
+
+From the repository root:
+
+```bash
+npm run dev
+```
+
+That starts both apps:
+
+- React frontend: `http://localhost:5173`
+- .NET API: `http://localhost:5189`
+
+During development, React calls `/api/todos`. Vite proxies that request to the .NET API, so you do not need CORS configuration for local development.
 
 ## Run The API
 
@@ -82,6 +126,31 @@ If you are running inside a restricted sandbox and startup appears to hang befor
 
 ```bash
 DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false dotnet run --project src/DotnetBoiler.Api
+```
+
+## Build For A Server
+
+From the repository root:
+
+```bash
+npm run build
+```
+
+This does two things:
+
+1. Builds the React frontend into `src/DotnetBoiler.Api/wwwroot`.
+2. Publishes the .NET API into `publish/`.
+
+The `publish/` folder is the deployable server artifact. ASP.NET Core serves:
+
+- API routes such as `/api/todos`
+- React files such as `/`
+- React client routes through `index.html`
+
+Run the published app locally:
+
+```bash
+dotnet publish/DotnetBoiler.Api.dll --urls http://localhost:5189
 ```
 
 ## Test With curl
@@ -292,14 +361,17 @@ dotnet format
 ## Suggested Learning Path
 
 1. Run the API.
-2. Call `GET /api/todos`.
-3. Open `TodoController.cs` and match each endpoint to each method.
-4. Open `ITodoService.cs` and understand the contract.
-5. Open `InMemoryTodoService.cs` and follow how the data changes.
-6. Add a new field to `TodoItem`, such as `Priority`.
-7. Add that field to `CreateTodoRequest` and `UpdateTodoRequest`.
-8. Update the service so the field is saved.
-9. Test again with curl.
+2. Run React and the API together with `npm run dev`.
+3. Open `http://localhost:5173`.
+4. Call `GET /api/todos`.
+5. Open `TodoController.cs` and match each endpoint to each method.
+6. Open `frontend/src/api.ts` and match each fetch call to each controller action.
+7. Open `ITodoService.cs` and understand the contract.
+8. Open `InMemoryTodoService.cs` and follow how the data changes.
+9. Add a new field to `TodoItem`, such as `Priority`.
+10. Add that field to `CreateTodoRequest`, `UpdateTodoRequest`, and `frontend/src/api.ts`.
+11. Update the service and React UI so the field is saved and displayed.
+12. Test again from the browser.
 
 ## Next Improvements To Try
 
